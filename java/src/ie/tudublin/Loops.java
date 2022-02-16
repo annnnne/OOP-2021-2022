@@ -71,7 +71,7 @@ public class Loops extends PApplet {
 			case 2:
 				background(255);
 				int circles = (int) (mouseX / 20.0f);
-				offset += (mouseY / 100.0f);
+				offset += (mouseY / 1000.0f);
 				float d = width / (float) circles;
 				for (int j = 0; j < circles; j++) {
 					for (int i = 0; i < circles; i++) {
@@ -79,7 +79,7 @@ public class Loops extends PApplet {
 						float c = map((i + j + offset), 0, circles * 2, 0, 255) % 256;
 						fill(c, 255, 255);
 						float x = map(i, 0, circles - 1, d / 2.0f, width - (d / 2.0f)); 
-						float y = map(j, 0, circles - 1, d / 2.0f, width - (d / 2.0f)); 
+						float y = map(j1, 0, circles - 1, d / 2.0f, width - (d / 2.0f)); 
 						circle(x, y, d);
 					}
 				}
