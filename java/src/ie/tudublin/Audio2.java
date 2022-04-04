@@ -8,7 +8,15 @@ import ddf.minim.AudioBuffer;
 import ddf.minim.AudioInput;
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
+import ddf.minim.analysis.FFT;
 import processing.core.PApplet;
+
+/*
+
+The infinite number of waves make up the mind, and all minds are made up of these waves which then interact with one another to form reality via Fourier transformations
+Science is not supposed to give meaning to ones life or the reason behind their existence; science only explains the testable and provable mechanisms that run the universe
+
+*/
 
 public class Audio2 extends PApplet
 {
@@ -50,6 +58,7 @@ public class Audio2 extends PApplet
     {
         minim = new Minim(this);
         // Uncomment this to use the microphone
+<<<<<<< HEAD
         // ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
         ab = ai.mix; 
         ap = minim.loadFile("heroplanet.mp3", 1024);
@@ -59,6 +68,16 @@ public class Audio2 extends PApplet
 
         fft = new FFT(1024, 44100);
 
+=======
+        ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
+        ab = ai.mix; 
+        //ap = minim.loadFile("heroplanet.mp3", 1024);
+        //ap.play();
+        //ab = ap.mix;
+        colorMode(RGB);
+
+        fft = new FFT(1024, 44100);
+>>>>>>> 51779e88c5f70100bbc46691d11b90cfec6b4f41
 
         y = height / 2;
         smoothedY = y;
@@ -71,6 +90,7 @@ public class Audio2 extends PApplet
     public void draw()
     {
         background(0);
+<<<<<<< HEAD
         stroke(225);
         float halfH = height / 2;
         for(int i = 0; i < ab.size() ; i++)
@@ -96,21 +116,42 @@ public class Audio2 extends PApplet
 
         
         
-
-
-        
-        // Other examples we made in the class
-        /*
+=======
         stroke(255);
-        fill(100, 255, 255);        
-        
-        circle(width / 2, halfH, lerpedA * 100);
+        float halfH = height / 2;
+        for(int i = 0 ; i < ab.size() ; i ++)
+        {
+            line(i, halfH, i, halfH + ab.get(i) * halfH);
+        }
 
-        circle(100, y, 50);
-        y += random(-10, 10);
-        smoothedY = lerp(smoothedY, y, 0.1f);        
-        circle(200, smoothedY, 50);
-        */
+        fft.window(FFT.HAMMING);
+        fft.forward(ab);
+
+        stroke(0, 255, 0);
+        for(int i = 0 ; i < fft.specSize(); i ++)
+        {
+            line(i, 0, i,fft.getBand(i) * 10);
+        }
+>>>>>>> 51779e88c5f70100bbc46691d11b90cfec6b4f41
+
+
+        int maxIndex = 0;
+
+        for(int i = 0 ; i < fft.specSize(); i ++)
+        {
+            if (fft.getBand(i) > fft.getBand(maxIndex))
+            {
+                maxIndex = i;
+            }
+        }
+
+        // Fill out missing code!!
+
+        float freq = fft.indexToFreq(maxIndex);
+
+        textSize(20);
+        fill(255);
+        text("Freq: " + freq, 100, 200);
 
     }        
 }
